@@ -1,11 +1,12 @@
 package com.golfclub.rest.member;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.golfclub.rest.tournament.Tournament;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Member {
@@ -20,6 +21,10 @@ public class Member {
     private String phoneNumber;
     private LocalDate memberStartDate;
     private String membershipType;
+
+    @ManyToMany(mappedBy = "members")
+    @JsonIgnore
+    private List<Tournament> tournaments = new ArrayList<>();
 
     public Member() {}
 
@@ -73,5 +78,13 @@ public class Member {
 
     public void setMembershipType(String membershipType) {
         this.membershipType = membershipType;
+    }
+
+    public List<Tournament> getTournaments() {
+        return tournaments;
+    }
+
+    public void setTournaments(List<Tournament> tournaments) {
+        this.tournaments = tournaments;
     }
 }
