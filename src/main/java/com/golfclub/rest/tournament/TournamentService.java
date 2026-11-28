@@ -6,6 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @Service
 public class TournamentService {
 
@@ -33,5 +36,17 @@ public class TournamentService {
         tournamentRepository.save(tournament);
 
         return member;
+    }
+
+    public List<Tournament> findTournamentByStartDate(LocalDate startDate) {
+        return tournamentRepository.findTournamentsByStartDate(startDate);
+    }
+
+    public List<Tournament> findTournamentByLocation(String location) {
+        return tournamentRepository.findTournamentsByLocation(location);
+    }
+
+    public List<Tournament> findAllTournaments() {
+        return tournamentRepository.findAll();
     }
 }
